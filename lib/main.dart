@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_flutter/app/helpers/themes/theme_data.dart';
+import 'package:todo_flutter/app/views/pages/dashboard_page.dart';
 import 'package:todo_flutter/app/views/pages/home_page.dart';
 
 void main() {
@@ -15,11 +16,13 @@ class MyApp extends StatelessWidget {
       title: 'To Do List',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: const HomePage(
-        title: 'HomePage',
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/dashboard': (context) => const DashboardPage()
+      },
     );
   }
 }
