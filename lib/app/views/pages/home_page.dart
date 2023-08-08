@@ -1,30 +1,57 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  final String title;
-
-  const HomePage({super.key, required this.title});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Container(
-          color: Theme.of(context).colorScheme.secondary,
-          child: Text(
-            'Text with a background color',
-            style: Theme.of(context).textTheme.titleLarge,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/todo_logo.png',
+              ),
+              Text(
+                'To-Do List',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                'Task organization tool',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(
+                height: 64,
+              ),
+              ElevatedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/dashboard'),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Text(
+                          'Start',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )),
+            ],
           ),
-        ),
-      ),
-      floatingActionButton: Theme(
-        data: Theme.of(context).copyWith(splashColor: Colors.yellow),
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(Icons.add),
         ),
       ),
     );
