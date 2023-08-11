@@ -7,6 +7,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -41,10 +42,9 @@ class HomePage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Icon(
-                              Icons.arrow_forward_rounded,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
+                            Icon(Icons.arrow_forward_rounded,
+                                color:
+                                    Theme.of(context).colorScheme.background),
                           ],
                         ),
                       ],
