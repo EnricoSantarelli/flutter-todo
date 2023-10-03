@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:todo_flutter/app/shared/domain/enums/status_enum.dart';
+import 'package:todo_flutter/app/helpers/enums/status_enum.dart';
 
 class Task {
   final String id;

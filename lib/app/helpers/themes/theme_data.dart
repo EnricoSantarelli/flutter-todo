@@ -14,11 +14,11 @@ ThemeData lightTheme = ThemeData(
             fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.white),
         titleSmall: TextStyle(fontSize: 16, color: AppColors.lightGray)),
     colorScheme: ColorScheme.light(
-      background: AppColors.white,
-      onBackground: AppColors.lightGray,
-      primary: AppColors.seaGreen,
-      onPrimary: AppColors.lightGray,
-    ),
+        background: AppColors.white,
+        onBackground: AppColors.lightGray,
+        primary: AppColors.seaGreen,
+        onPrimary: AppColors.lightGray,
+        onSurface: AppColors.darkGray),
     cardColor: AppColors.seaGreen,
     iconTheme: IconThemeData(color: AppColors.darkGray, size: 32),
     appBarTheme: AppBarTheme(
@@ -50,11 +50,11 @@ ThemeData darkTheme = ThemeData(
             color: AppColors.darkGray),
         titleSmall: TextStyle(fontSize: 16, color: AppColors.white)),
     colorScheme: ColorScheme.dark(
-      background: AppColors.darkGray,
-      onBackground: AppColors.white,
-      primary: AppColors.seaGreen,
-      onPrimary: AppColors.white,
-    ),
+        background: AppColors.darkGray,
+        onBackground: AppColors.white,
+        primary: AppColors.seaGreen,
+        onPrimary: AppColors.white,
+        onSurface: AppColors.white),
     iconTheme: IconThemeData(color: AppColors.white, size: 32),
     cardColor: AppColors.seaGreen,
     appBarTheme: AppBarTheme(

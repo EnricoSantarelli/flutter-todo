@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_flutter/app/controllers/tasks_store.dart';
-import 'package:todo_flutter/app/shared/helpers/themes/theme_data.dart';
+import 'package:todo_flutter/app/helpers/themes/theme_data.dart';
 import 'package:todo_flutter/app/views/pages/dashboard_page.dart';
 import 'package:todo_flutter/app/views/pages/home_page.dart';
 

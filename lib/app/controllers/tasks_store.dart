@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:mobx/mobx.dart';
-import 'package:todo_flutter/app/shared/domain/entities/Task.dart';
+import 'package:todo_flutter/app/models/Task.dart';
 
 part 'tasks_store.g.dart';
 
