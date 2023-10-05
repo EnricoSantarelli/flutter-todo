@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter/app/views/widgets/button_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,28 +29,10 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 64,
               ),
-              ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, '/dashboard'),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Text(
-                          'Start',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Icon(Icons.arrow_forward_rounded,
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )),
+              const ButtonWidget(
+                  path: '/dashboard',
+                  title: 'Start',
+                  icon: Icons.arrow_forward_rounded)
             ],
           ),
         ),

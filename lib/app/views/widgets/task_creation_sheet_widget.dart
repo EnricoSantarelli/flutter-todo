@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_flutter/app/controllers/tasks_store.dart';
+import 'package:todo_flutter/app/views/widgets/button_widget.dart';
 
 class TaskCreationSheetWidget extends StatelessWidget {
   static const iconsList = [
@@ -93,7 +94,7 @@ class TaskCreationSheetWidget extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onPrimary,
                       ))),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             Text(
               'Description',
               style: Theme.of(context)
@@ -118,24 +119,68 @@ class TaskCreationSheetWidget extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onPrimary,
                       ))),
             ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Difficulty: ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                ),
-                const Icon(Icons.star),
-                const Icon(Icons.star),
-                const Icon(Icons.star),
-                const Icon(Icons.star),
-                const Icon(Icons.star)
-              ],
-            ),
+            const SizedBox(height: 8),
+            Observer(builder: (context) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Difficulty: ',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  ),
+                  IconButton(
+                    onPressed: () => store.setDifficulty(1),
+                    icon: Icon(
+                      Icons.star,
+                      color: store.starsColor[0],
+                    ),
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                  ),
+                  IconButton(
+                    onPressed: () => store.setDifficulty(2),
+                    icon: Icon(
+                      Icons.star,
+                      color: store.starsColor[1],
+                    ),
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                  ),
+                  IconButton(
+                    onPressed: () => store.setDifficulty(3),
+                    icon: Icon(
+                      Icons.star,
+                      color: store.starsColor[2],
+                    ),
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                  ),
+                  IconButton(
+                    onPressed: () => store.setDifficulty(4),
+                    icon: Icon(
+                      Icons.star,
+                      color: store.starsColor[3],
+                    ),
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                  ),
+                  IconButton(
+                    onPressed: () => store.setDifficulty(5),
+                    icon: Icon(
+                      Icons.star,
+                      color: store.starsColor[4],
+                    ),
+                    constraints: const BoxConstraints(),
+                    padding: EdgeInsets.zero,
+                  ),
+                ],
+              );
+            }),
+            const SizedBox(height: 32),
+            const ButtonWidget(
+                path: '/dashboard', title: 'Create', icon: Icons.add)
           ],
         )),
       ),

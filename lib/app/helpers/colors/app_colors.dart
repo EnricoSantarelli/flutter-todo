@@ -6,4 +6,9 @@ class AppColors {
   static Color black = const Color(0x00000000);
   static Color lightGray = const Color(0xFF999999);
   static Color darkGray = const Color(0xFF333333);
+  static Color green = Colors.lightGreenAccent;
+  static Color yellow = Colors.yellowAccent;
+  static Color orange = Colors.orangeAccent;
+  static Color red = Colors.redAccent;
+  static Color purple = Colors.purpleAccent;
 }

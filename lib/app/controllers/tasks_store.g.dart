@@ -55,6 +55,38 @@ mixin _$TasksStore on TasksStoreBase, Store {
     });
   }
 
+  late final _$difficultyAtom =
+      Atom(name: 'TasksStoreBase.difficulty', context: context);
+
+  @override
+  int? get difficulty {
+    _$difficultyAtom.reportRead();
+    return super.difficulty;
+  }
+
+  @override
+  set difficulty(int? value) {
+    _$difficultyAtom.reportWrite(value, super.difficulty, () {
+      super.difficulty = value;
+    });
+  }
+
+  late final _$starsColorAtom =
+      Atom(name: 'TasksStoreBase.starsColor', context: context);
+
+  @override
+  List<Color> get starsColor {
+    _$starsColorAtom.reportRead();
+    return super.starsColor;
+  }
+
+  @override
+  set starsColor(List<Color> value) {
+    _$starsColorAtom.reportWrite(value, super.starsColor, () {
+      super.starsColor = value;
+    });
+  }
+
   late final _$tasksListAtom =
       Atom(name: 'TasksStoreBase.tasksList', context: context);
 
@@ -108,11 +140,24 @@ mixin _$TasksStore on TasksStoreBase, Store {
   }
 
   @override
+  void setDifficulty(int value) {
+    final _$actionInfo = _$TasksStoreBaseActionController.startAction(
+        name: 'TasksStoreBase.setDifficulty');
+    try {
+      return super.setDifficulty(value);
+    } finally {
+      _$TasksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 icon: ${icon},
 title: ${title},
 description: ${description},
+difficulty: ${difficulty},
+starsColor: ${starsColor},
 tasksList: ${tasksList}
     ''';
   }
