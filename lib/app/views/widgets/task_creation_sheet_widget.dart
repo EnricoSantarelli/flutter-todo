@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_flutter/app/controllers/tasks_store.dart';
+import 'package:todo_flutter/app/helpers/enums/status_enum.dart';
+import 'package:todo_flutter/app/models/Task.dart';
+import 'package:todo_flutter/app/views/animation/blinking_difficulty_animation.dart';
+import 'package:todo_flutter/app/views/animation/blinking_icon_animation.dart';
+import 'package:todo_flutter/app/views/widgets/app_bar_widget.dart';
 import 'package:todo_flutter/app/views/widgets/button_widget.dart';
+import 'package:uuid/uuid.dart';
 
 class TaskCreationSheetWidget extends StatelessWidget {
   static const iconsList = [
@@ -23,166 +29,225 @@ class TaskCreationSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<TasksStore>(context, listen: false);
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+    final formKey = GlobalKey<FormState>();
+
+    // reset the form when rebuild the sheet
+    store.isDifficultySet = true;
+    store.isIconSet = true;
+    store.icon = null;
+    store.difficulty = null;
+    store.starsColor = List.filled(5, ThemeData().iconTheme.color!);
+
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBarWidget(
+          elevation: 0,
+          leading: IconButton(
+              icon: const Icon(Icons.close_rounded),
+              onPressed: () => Navigator.pop(context)),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         child: Form(
+            key: formKey,
             child: Column(
-          children: [
-            Text(
-              "Create your task",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(fontSize: 32),
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Select an icon',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-            Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 16,
-              runSpacing: 8,
-              children: List.generate(
-                  iconsList.length,
-                  (index) => Observer(builder: (context) {
-                        var isSelected = store.icon == iconsList[index];
-                        return Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: isSelected
-                                  ? Border.all(
-                                      width: 2,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary)
-                                  : null),
-                          child: IconButton(
-                            onPressed: () => store.setIcon(iconsList[index]),
-                            icon: Icon(iconsList[index]),
-                            iconSize: isSelected ? 48 : 32,
-                          ),
-                        );
-                      })),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Title',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-            TextFormField(
-              maxLength: 20,
-              onChanged: (value) => store.setTitle(value),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ))),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Description',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-            TextFormField(
-              maxLines: 3,
-              expands: false,
-              maxLength: 100,
-              onChanged: (value) => store.setTitle(value),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ))),
-            ),
-            const SizedBox(height: 8),
-            Observer(builder: (context) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Difficulty: ',
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary),
-                  ),
-                  IconButton(
-                    onPressed: () => store.setDifficulty(1),
-                    icon: Icon(
-                      Icons.star,
-                      color: store.starsColor[0],
-                    ),
-                    constraints: const BoxConstraints(),
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    onPressed: () => store.setDifficulty(2),
-                    icon: Icon(
-                      Icons.star,
-                      color: store.starsColor[1],
-                    ),
-                    constraints: const BoxConstraints(),
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    onPressed: () => store.setDifficulty(3),
-                    icon: Icon(
-                      Icons.star,
-                      color: store.starsColor[2],
-                    ),
-                    constraints: const BoxConstraints(),
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    onPressed: () => store.setDifficulty(4),
-                    icon: Icon(
-                      Icons.star,
-                      color: store.starsColor[3],
-                    ),
-                    constraints: const BoxConstraints(),
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    onPressed: () => store.setDifficulty(5),
-                    icon: Icon(
-                      Icons.star,
-                      color: store.starsColor[4],
-                    ),
-                    constraints: const BoxConstraints(),
-                    padding: EdgeInsets.zero,
-                  ),
-                ],
-              );
-            }),
-            const SizedBox(height: 32),
-            const ButtonWidget(
-                path: '/dashboard', title: 'Create', icon: Icons.add)
-          ],
-        )),
+              children: [
+                Text(
+                  "Create your task",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 32),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Select an icon',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 16,
+                  runSpacing: 8,
+                  children: List.generate(
+                      iconsList.length,
+                      (index) => Observer(builder: (context) {
+                            var isSelected = store.icon == iconsList[index];
+                            return Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: isSelected
+                                        ? Border.all(
+                                            width: 2,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary)
+                                        : null),
+                                child: store.isIconSet
+                                    ? IconButton(
+                                        onPressed: () =>
+                                            store.setIcon(iconsList[index]),
+                                        icon: Icon(iconsList[index]),
+                                        iconSize: isSelected ? 48 : 32)
+                                    : BlinkingIconAnimation(
+                                        onPressed: () =>
+                                            store.setIcon(iconsList[index]),
+                                        icon: iconsList[index],
+                                        size: isSelected ? 48 : 32));
+                          })),
+                ),
+                Observer(builder: (context) {
+                  return store.isIconSet == false
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            // similar to default error style
+                            padding: const EdgeInsets.fromLTRB(12.2, 2, 0, 0),
+                            child: Text(
+                              'Select an icon',
+                              style: TextStyle(
+                                  color: ThemeData().colorScheme.error,
+                                  fontSize: 11.5),
+                            ),
+                          ))
+                      : const SizedBox.shrink();
+                }),
+                const SizedBox(height: 16),
+                Text(
+                  'Title',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                TextFormField(
+                  validator: (value) => store.validateTitle(value),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  maxLength: 20,
+                  onChanged: (value) => store.setTitle(value),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ))),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Description',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                TextFormField(
+                  maxLines: 3,
+                  expands: false,
+                  maxLength: 100,
+                  onChanged: (value) => store.setTitle(value),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ))),
+                ),
+                const SizedBox(height: 8),
+                Observer(builder: (context) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Difficulty: ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                      ),
+                      Row(
+                        children: List.generate(5, (index) {
+                          return store.isDifficultySet
+                              ? IconButton(
+                                  onPressed: () =>
+                                      store.setDifficulty(index + 1),
+                                  icon: Icon(
+                                    Icons.star,
+                                    color: store.starsColor[index],
+                                  ),
+                                  constraints: const BoxConstraints(),
+                                  padding: EdgeInsets.zero,
+                                )
+                              : BlinkingDifficultyAnimation(
+                                  onPressed: () =>
+                                      store.setDifficulty(index + 1),
+                                  color: store.starsColor[index]);
+                        }),
+                      )
+                    ],
+                  );
+                }),
+                Observer(builder: (context) {
+                  return store.isDifficultySet == false
+                      ? Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            // similar to default error style
+                            padding: const EdgeInsets.fromLTRB(0, 2, 12.2, 0),
+                            child: Text(
+                              'Select an difficulty',
+                              style: TextStyle(
+                                  color: ThemeData().colorScheme.error,
+                                  fontSize: 11.5),
+                            ),
+                          ))
+                      : const SizedBox.shrink();
+                }),
+                const SizedBox(height: 32),
+                ButtonWidget(
+                    onPressed: () {
+                      if (store.difficulty == null) {
+                        store.isDifficultySet = false;
+                      }
+                      if (store.icon == null) {
+                        store.isIconSet = false;
+                      }
+                      if (formKey.currentState!.validate() &&
+                          store.isIconSet &&
+                          store.isDifficultySet) {
+                        store.addTask(Task(
+                            id: const Uuid().v4(),
+                            difficulty: store.difficulty!,
+                            icon: store.icon!,
+                            title: store.title!,
+                            status: StatusEnum.TO_DO,
+                            description: store.description));
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    title: 'Create',
+                    icon: Icons.add),
+              ],
+            )),
       ),
     );
   }

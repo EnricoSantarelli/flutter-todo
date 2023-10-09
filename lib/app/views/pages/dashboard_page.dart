@@ -15,11 +15,14 @@ class DashboardPage extends StatelessWidget {
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(60), child: AppBarWidget()),
+          preferredSize: Size.fromHeight(60),
+          child: AppBarWidget(
+            title: "To-Do List",
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(
-            showDragHandle: true,
+            enableDrag: false,
             useSafeArea: true,
             isScrollControlled: true,
             context: context,

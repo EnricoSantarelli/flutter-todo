@@ -18,7 +18,8 @@ ThemeData lightTheme = ThemeData(
         onBackground: AppColors.lightGray,
         primary: AppColors.seaGreen,
         onPrimary: AppColors.lightGray,
-        onSurface: AppColors.darkGray),
+        onSurface: AppColors.darkGray,
+        error: AppColors.red),
     cardColor: AppColors.seaGreen,
     iconTheme: IconThemeData(color: AppColors.darkGray, size: 32),
     appBarTheme: AppBarTheme(
@@ -54,7 +55,8 @@ ThemeData darkTheme = ThemeData(
         onBackground: AppColors.white,
         primary: AppColors.seaGreen,
         onPrimary: AppColors.white,
-        onSurface: AppColors.white),
+        onSurface: AppColors.white,
+        error: AppColors.red),
     iconTheme: IconThemeData(color: AppColors.white, size: 32),
     cardColor: AppColors.seaGreen,
     appBarTheme: AppBarTheme(

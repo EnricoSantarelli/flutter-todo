@@ -14,7 +14,12 @@ abstract class TasksStoreBase with Store {
   @action
   void setIcon(IconData value) {
     icon = value;
+
+    isIconSet = true;
   }
+
+  @observable
+  bool isIconSet = true;
 
   @observable
   String? title;
@@ -22,6 +27,14 @@ abstract class TasksStoreBase with Store {
   @action
   void setTitle(String value) {
     title = value;
+  }
+
+  @action
+  String? validateTitle(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Enter a title";
+    }
+    return null;
   }
 
   @observable
@@ -51,7 +64,12 @@ abstract class TasksStoreBase with Store {
     color = colorMap[value];
 
     starsColor.fillRange(0, value, color);
+
+    isDifficultySet = true;
   }
+
+  @observable
+  bool isDifficultySet = true;
 
   @observable
   List<Color> starsColor =
@@ -59,4 +77,9 @@ abstract class TasksStoreBase with Store {
 
   @observable
   List<Task> tasksList = ObservableList<Task>();
+
+  @action
+  void addTask(Task task) {
+    tasksList.add(task);
+  }
 }

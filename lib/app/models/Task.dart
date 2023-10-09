@@ -5,15 +5,15 @@ import 'package:todo_flutter/app/helpers/enums/status_enum.dart';
 
 class Task {
   final String id;
-  final String name;
+  final String title;
   final String? description;
   final int difficulty;
-  final Icon icon;
+  final IconData icon;
   final StatusEnum status;
 
   Task(
       {this.description,
-      required this.name,
+      required this.title,
       required this.difficulty,
       required this.icon,
       required this.status,

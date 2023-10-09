@@ -24,6 +24,22 @@ mixin _$TasksStore on TasksStoreBase, Store {
     });
   }
 
+  late final _$isIconSetAtom =
+      Atom(name: 'TasksStoreBase.isIconSet', context: context);
+
+  @override
+  bool get isIconSet {
+    _$isIconSetAtom.reportRead();
+    return super.isIconSet;
+  }
+
+  @override
+  set isIconSet(bool value) {
+    _$isIconSetAtom.reportWrite(value, super.isIconSet, () {
+      super.isIconSet = value;
+    });
+  }
+
   late final _$titleAtom = Atom(name: 'TasksStoreBase.title', context: context);
 
   @override
@@ -68,6 +84,22 @@ mixin _$TasksStore on TasksStoreBase, Store {
   set difficulty(int? value) {
     _$difficultyAtom.reportWrite(value, super.difficulty, () {
       super.difficulty = value;
+    });
+  }
+
+  late final _$isDifficultySetAtom =
+      Atom(name: 'TasksStoreBase.isDifficultySet', context: context);
+
+  @override
+  bool get isDifficultySet {
+    _$isDifficultySetAtom.reportRead();
+    return super.isDifficultySet;
+  }
+
+  @override
+  set isDifficultySet(bool value) {
+    _$isDifficultySetAtom.reportWrite(value, super.isDifficultySet, () {
+      super.isDifficultySet = value;
     });
   }
 
@@ -129,6 +161,17 @@ mixin _$TasksStore on TasksStoreBase, Store {
   }
 
   @override
+  String? validateTitle(String? value) {
+    final _$actionInfo = _$TasksStoreBaseActionController.startAction(
+        name: 'TasksStoreBase.validateTitle');
+    try {
+      return super.validateTitle(value);
+    } finally {
+      _$TasksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setDescription(String value) {
     final _$actionInfo = _$TasksStoreBaseActionController.startAction(
         name: 'TasksStoreBase.setDescription');
@@ -151,12 +194,25 @@ mixin _$TasksStore on TasksStoreBase, Store {
   }
 
   @override
+  void addTask(Task task) {
+    final _$actionInfo = _$TasksStoreBaseActionController.startAction(
+        name: 'TasksStoreBase.addTask');
+    try {
+      return super.addTask(task);
+    } finally {
+      _$TasksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 icon: ${icon},
+isIconSet: ${isIconSet},
 title: ${title},
 description: ${description},
 difficulty: ${difficulty},
+isDifficultySet: ${isDifficultySet},
 starsColor: ${starsColor},
 tasksList: ${tasksList}
     ''';

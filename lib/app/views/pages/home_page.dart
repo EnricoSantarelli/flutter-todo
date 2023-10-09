@@ -29,8 +29,8 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 64,
               ),
-              const ButtonWidget(
-                  path: '/dashboard',
+              ButtonWidget(
+                  onPressed: () => Navigator.pushNamed(context, '/dashboard'),
                   title: 'Start',
                   icon: Icons.arrow_forward_rounded)
             ],
