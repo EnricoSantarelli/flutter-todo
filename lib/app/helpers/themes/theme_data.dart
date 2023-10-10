@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../colors/app_colors.dart';
 
 ThemeData lightTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.transparent,
     fontFamily: GoogleFonts.poppins().fontFamily,
+    listTileTheme: ListTileThemeData(
+        tileColor: AppColors.white, textColor: AppColors.darkGray),
     textTheme: TextTheme(
         titleLarge: TextStyle(
             fontSize: 40,
@@ -14,11 +17,12 @@ ThemeData lightTheme = ThemeData(
             fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.white),
         titleSmall: TextStyle(fontSize: 16, color: AppColors.lightGray)),
     colorScheme: ColorScheme.light(
-        background: AppColors.white,
+        background: AppColors.darkWhite,
         onBackground: AppColors.lightGray,
         primary: AppColors.seaGreen,
         onPrimary: AppColors.lightGray,
         onSurface: AppColors.darkGray,
+        tertiary: AppColors.white,
         error: AppColors.red),
     cardColor: AppColors.seaGreen,
     iconTheme: IconThemeData(color: AppColors.darkGray, size: 32),
@@ -36,10 +40,14 @@ ThemeData lightTheme = ThemeData(
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.seaGreen,
         iconSize: 36,
-        foregroundColor: AppColors.white));
+        foregroundColor: AppColors.darkWhite));
 
 ThemeData darkTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.transparent,
     fontFamily: GoogleFonts.poppins().fontFamily,
+    listTileTheme: ListTileThemeData(
+      tileColor: AppColors.darkGray,
+    ),
     textTheme: TextTheme(
         titleLarge: TextStyle(
             fontSize: 40,
@@ -51,11 +59,12 @@ ThemeData darkTheme = ThemeData(
             color: AppColors.darkGray),
         titleSmall: TextStyle(fontSize: 16, color: AppColors.white)),
     colorScheme: ColorScheme.dark(
-        background: AppColors.darkGray,
+        background: AppColors.extraDarkGray,
         onBackground: AppColors.white,
         primary: AppColors.seaGreen,
         onPrimary: AppColors.white,
         onSurface: AppColors.white,
+        tertiary: AppColors.darkGray,
         error: AppColors.red),
     iconTheme: IconThemeData(color: AppColors.white, size: 32),
     cardColor: AppColors.seaGreen,
@@ -63,8 +72,6 @@ ThemeData darkTheme = ThemeData(
         backgroundColor: AppColors.darkGray,
         foregroundColor: AppColors.white,
         titleTextStyle: TextStyle(fontSize: 24, color: AppColors.white)),
-    listTileTheme: ListTileThemeData(
-        titleTextStyle: TextStyle(color: AppColors.darkGray, fontSize: 24)),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
       shape: MaterialStatePropertyAll(
@@ -74,4 +81,4 @@ ThemeData darkTheme = ThemeData(
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.seaGreen,
         iconSize: 36,
-        foregroundColor: AppColors.darkGray));
+        foregroundColor: AppColors.extraDarkGray));

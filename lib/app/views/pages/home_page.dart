@@ -7,33 +7,44 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/todo_logo.png',
-              ),
-              Text(
-                'To-Do List',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              Text(
-                'Task organization tool',
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(
-                height: 64,
-              ),
-              ButtonWidget(
-                  onPressed: () => Navigator.pushNamed(context, '/dashboard'),
-                  title: 'Start',
-                  icon: Icons.arrow_forward_rounded)
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.background,
+          ],
+          stops: const [0.1, 0.4],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/todo_logo.png',
+                ),
+                Text(
+                  'To-Do List',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                Text(
+                  'Task organization tool',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(
+                  height: 64,
+                ),
+                ButtonWidget(
+                    onPressed: () => Navigator.pushNamed(context, '/dashboard'),
+                    title: 'Start',
+                    icon: Icons.arrow_forward_rounded)
+              ],
+            ),
           ),
         ),
       ),

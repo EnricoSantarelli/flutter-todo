@@ -32,11 +32,12 @@ class TaskCreationSheetWidget extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     // reset the form when rebuild the sheet
+    store.starsColor =
+        List.generate(5, (index) => Theme.of(context).iconTheme.color!);
     store.isDifficultySet = true;
     store.isIconSet = true;
     store.icon = null;
     store.difficulty = null;
-    store.starsColor = List.filled(5, ThemeData().iconTheme.color!);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -44,6 +45,7 @@ class TaskCreationSheetWidget extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBarWidget(
+          backgroundColor: Theme.of(context).colorScheme.background,
           elevation: 0,
           leading: IconButton(
               icon: const Icon(Icons.close_rounded),
@@ -138,6 +140,8 @@ class TaskCreationSheetWidget extends StatelessWidget {
                       .copyWith(color: Theme.of(context).colorScheme.onSurface),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
+                      fillColor: Theme.of(context).colorScheme.tertiary,
+                      filled: true,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
@@ -163,6 +167,8 @@ class TaskCreationSheetWidget extends StatelessWidget {
                       .copyWith(color: Theme.of(context).colorScheme.onSurface),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
+                      fillColor: Theme.of(context).colorScheme.tertiary,
+                      filled: true,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
@@ -189,7 +195,7 @@ class TaskCreationSheetWidget extends StatelessWidget {
                           return store.isDifficultySet
                               ? IconButton(
                                   onPressed: () =>
-                                      store.setDifficulty(index + 1),
+                                      store.setDifficulty(index + 1, context),
                                   icon: Icon(
                                     Icons.star,
                                     color: store.starsColor[index],
@@ -199,7 +205,7 @@ class TaskCreationSheetWidget extends StatelessWidget {
                                 )
                               : BlinkingDifficultyAnimation(
                                   onPressed: () =>
-                                      store.setDifficulty(index + 1),
+                                      store.setDifficulty(index + 1, context),
                                   color: store.starsColor[index]);
                         }),
                       )

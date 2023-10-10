@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+
 import 'package:todo_flutter/app/helpers/colors/app_colors.dart';
 import 'package:todo_flutter/app/models/Task.dart';
 
@@ -49,9 +51,10 @@ abstract class TasksStoreBase with Store {
   int? difficulty;
 
   @action
-  void setDifficulty(int value) {
+  void setDifficulty(int value, BuildContext context) {
     difficulty = value;
-    starsColor = List.generate(5, (index) => ThemeData().iconTheme.color!);
+    starsColor =
+        List.generate(5, (index) => Theme.of(context).iconTheme.color!);
 
     Color? color;
     Map<int, Color> colorMap = {

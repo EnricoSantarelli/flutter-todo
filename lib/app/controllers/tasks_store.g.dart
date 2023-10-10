@@ -183,11 +183,11 @@ mixin _$TasksStore on TasksStoreBase, Store {
   }
 
   @override
-  void setDifficulty(int value) {
+  void setDifficulty(int value, BuildContext context) {
     final _$actionInfo = _$TasksStoreBaseActionController.startAction(
         name: 'TasksStoreBase.setDifficulty');
     try {
-      return super.setDifficulty(value);
+      return super.setDifficulty(value, context);
     } finally {
       _$TasksStoreBaseActionController.endAction(_$actionInfo);
     }

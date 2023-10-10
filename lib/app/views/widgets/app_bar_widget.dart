@@ -4,11 +4,18 @@ class AppBarWidget extends StatelessWidget {
   final double? elevation;
   final String? title;
   final Widget? leading;
-  const AppBarWidget({super.key, this.elevation, this.title, this.leading});
+  final Color? backgroundColor;
+  const AppBarWidget(
+      {super.key,
+      this.elevation,
+      this.title,
+      this.leading,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+        backgroundColor: backgroundColor,
         elevation: elevation,
         leading: leading,
         centerTitle: true,
