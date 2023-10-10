@@ -9,14 +9,13 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
+            gradient: RadialGradient(
           colors: [
             Theme.of(context).colorScheme.primary,
             Theme.of(context).colorScheme.background,
           ],
-          stops: const [0.1, 0.4],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          stops: const [0.01, 1],
+          center: Alignment.center,
         )),
         child: Scaffold(
           resizeToAvoidBottomInset: false,

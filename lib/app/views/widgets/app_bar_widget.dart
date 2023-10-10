@@ -23,7 +23,7 @@ class AppBarWidget extends StatelessWidget {
             ? Text(
                 title!,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
               )
             : const SizedBox.shrink());

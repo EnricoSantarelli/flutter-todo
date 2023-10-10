@@ -28,7 +28,7 @@ ThemeData lightTheme = ThemeData(
     iconTheme: IconThemeData(color: AppColors.darkGray, size: 32),
     appBarTheme: AppBarTheme(
         backgroundColor: AppColors.white,
-        foregroundColor: AppColors.lightGray,
+        foregroundColor: AppColors.seaGreen,
         titleTextStyle: TextStyle(fontSize: 24, color: AppColors.lightGray)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -70,7 +70,7 @@ ThemeData darkTheme = ThemeData(
     cardColor: AppColors.seaGreen,
     appBarTheme: AppBarTheme(
         backgroundColor: AppColors.darkGray,
-        foregroundColor: AppColors.white,
+        foregroundColor: AppColors.seaGreen,
         titleTextStyle: TextStyle(fontSize: 24, color: AppColors.white)),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
