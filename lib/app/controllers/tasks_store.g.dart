@@ -123,13 +123,13 @@ mixin _$TasksStore on TasksStoreBase, Store {
       Atom(name: 'TasksStoreBase.tasksList', context: context);
 
   @override
-  List<Task> get tasksList {
+  ObservableList<Task> get tasksList {
     _$tasksListAtom.reportRead();
     return super.tasksList;
   }
 
   @override
-  set tasksList(List<Task> value) {
+  set tasksList(ObservableList<Task> value) {
     _$tasksListAtom.reportWrite(value, super.tasksList, () {
       super.tasksList = value;
     });
@@ -149,6 +149,23 @@ mixin _$TasksStore on TasksStoreBase, Store {
   @override
   Future<void> getAllTasks() {
     return _$getAllTasksAsyncAction.run(() => super.getAllTasks());
+  }
+
+  late final _$deleteTaskAsyncAction =
+      AsyncAction('TasksStoreBase.deleteTask', context: context);
+
+  @override
+  Future<void> deleteTask(String id) {
+    return _$deleteTaskAsyncAction.run(() => super.deleteTask(id));
+  }
+
+  late final _$changeTaskStatusAsyncAction =
+      AsyncAction('TasksStoreBase.changeTaskStatus', context: context);
+
+  @override
+  Future<void> changeTaskStatus(Task task, StatusEnum status) {
+    return _$changeTaskStatusAsyncAction
+        .run(() => super.changeTaskStatus(task, status));
   }
 
   late final _$TasksStoreBaseActionController =
@@ -204,17 +221,6 @@ mixin _$TasksStore on TasksStoreBase, Store {
         name: 'TasksStoreBase.setDifficulty');
     try {
       return super.setDifficulty(value, context);
-    } finally {
-      _$TasksStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void deleteTask(String id) {
-    final _$actionInfo = _$TasksStoreBaseActionController.startAction(
-        name: 'TasksStoreBase.deleteTask');
-    try {
-      return super.deleteTask(id);
     } finally {
       _$TasksStoreBaseActionController.endAction(_$actionInfo);
     }

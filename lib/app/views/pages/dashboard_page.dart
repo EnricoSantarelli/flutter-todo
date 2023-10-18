@@ -37,12 +37,12 @@ class DashboardPage extends StatelessWidget {
             }),
         child: const Icon(Icons.add),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(children: [
-          Expanded(
-            child: Observer(builder: (context) {
-              return ListView.builder(
+      body: Column(children: [
+        Expanded(
+          child: Observer(builder: (context) {
+            return RefreshIndicator(
+              onRefresh: () => store.getAllTasks(),
+              child: ListView.builder(
                 itemCount: store.tasksList.length,
                 itemBuilder: (context, index) {
                   Task task = store.tasksList[index];
@@ -65,138 +65,142 @@ class DashboardPage extends StatelessWidget {
                     differenceBetweenDates =
                         "${DateTime.now().difference(task.createdAt).inDays} days ago";
                   }
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Material(
-                      elevation: 4,
-                      child: Dismissible(
-                        key: Key(task.id),
-                        onDismissed: (direction) {
-                          store.deleteTask(task.id);
-                        },
-                        background: Container(
-                          decoration: BoxDecoration(color: AppColors.red),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Icon(
-                                  Icons.delete_forever_rounded,
-                                  color: AppColors.white,
-                                )),
+                  return Stack(
+                    children: [
+                      Material(
+                        elevation: 4,
+                        child: Dismissible(
+                          key: Key(task.id),
+                          onDismissed: (direction) {
+                            store.deleteTask(task.id);
+                          },
+                          background: Container(
+                            decoration: BoxDecoration(color: AppColors.red),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Icon(
+                                    Icons.delete_forever_rounded,
+                                    color: AppColors.white,
+                                  )),
+                            ),
                           ),
-                        ),
-                        direction: DismissDirection.startToEnd,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                                left: 8,
-                                bottom: 2,
-                                child: Text(task.status.name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(fontSize: 10))),
-                            ExpansionTile(
-                              trailing: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 48,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  Text(
-                                    task.difficulty.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(fontSize: 16),
-                                  )
-                                ],
-                              ),
-                              leading: Icon(
-                                task.icon,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              iconColor: AppColors.getColorByDifficulty(
-                                  task.difficulty),
-                              title: Text(StringHelper.capitalize(task.title),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          fontSize: 20,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground)),
-                              subtitle: Text(differenceBetweenDates,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground)),
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                          direction: DismissDirection.startToEnd,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                  left: 16,
+                                  bottom: 2,
+                                  child: Text(task.status.name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(fontSize: 10))),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: ExpansionTile(
+                                  trailing: Stack(
+                                    alignment: Alignment.center,
                                     children: [
-                                      Text(task.description ?? "No description",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onBackground)),
-                                      const Spacer(),
-                                      DropdownButtonHideUnderline(
-                                        child: DropdownButton(
-                                            value: task.status,
-                                            items: StatusEnum.values
-                                                .map((StatusEnum status) {
-                                              return DropdownMenuItem(
-                                                  value: status,
-                                                  child: Text(status.name,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleSmall!
-                                                          .copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .onBackground)));
-                                            }).toList(),
-                                            onChanged: ((value) {
-                                              print(store
-                                                  .tasksList[index].status);
-                                              store.tasksList[index] =
-                                                  task.copyWith(status: value);
-                                              print(store
-                                                  .tasksList[index].status);
-                                            })),
+                                      Icon(Icons.star,
+                                          size: 48,
+                                          color: AppColors.getColorByDifficulty(
+                                              task.difficulty)),
+                                      Text(
+                                        task.difficulty.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(fontSize: 16),
                                       )
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ],
+                                  leading: Icon(
+                                    task.icon,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  iconColor: AppColors.getColorByDifficulty(
+                                      task.difficulty),
+                                  title: Text(
+                                      StringHelper.capitalize(task.title),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(
+                                              fontSize: 20,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground)),
+                                  subtitle: Text(differenceBetweenDates,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground)),
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              task.description ??
+                                                  "No description",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onBackground)),
+                                          const Spacer(),
+                                          DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                                value: task.status,
+                                                items: StatusEnum.values
+                                                    .map((StatusEnum status) {
+                                                  return DropdownMenuItem(
+                                                      value: status,
+                                                      child: Text(status.name,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleSmall!
+                                                              .copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onBackground)));
+                                                }).toList(),
+                                                onChanged: ((value) {
+                                                  store.changeTaskStatus(
+                                                      task, value!);
+                                                })),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   );
                 },
-              );
-            }),
-          ),
-        ]),
-      ),
+              ),
+            );
+          }),
+        ),
+      ]),
     ));
   }
 }

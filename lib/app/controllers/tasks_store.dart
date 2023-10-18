@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:todo_flutter/app/helpers/colors/app_colors.dart';
+import 'package:todo_flutter/app/helpers/enums/status_enum.dart';
 import 'package:todo_flutter/app/models/Task.dart';
 import 'package:todo_flutter/app/services/repository/task_repository.dart';
 
@@ -75,7 +76,7 @@ abstract class TasksStoreBase with Store {
       List.generate(5, (index) => ThemeData().iconTheme.color!);
 
   @observable
-  List<Task> tasksList = ObservableList<Task>();
+  ObservableList<Task> tasksList = ObservableList<Task>();
 
   @action
   Future<void> createTask(Task task) async {
@@ -85,11 +86,21 @@ abstract class TasksStoreBase with Store {
 
   @action
   Future<void> getAllTasks() async {
-    tasksList = await _repository.getAllTasks();
+    List<Task> auxiliarList = await _repository.getAllTasks();
+    tasksList = ObservableList<Task>.of(auxiliarList);
   }
 
   @action
-  void deleteTask(String id) {
+  Future<void> deleteTask(String id) async {
+    await _repository.deleteTask(id);
     tasksList.removeWhere((element) => element.id == id);
+  }
+
+  @action
+  Future<void> changeTaskStatus(Task task, StatusEnum status) async {
+    int index = tasksList.indexOf(task);
+
+    tasksList[index] = tasksList[index].copyWith(status: status);
+    await _repository.updateTask(tasksList[index]);
   }
 }

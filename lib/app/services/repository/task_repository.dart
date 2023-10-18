@@ -29,4 +29,15 @@ class TaskRepository {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  Future<void> deleteTask(String id) async {
+    Database db = await TaskDatabase.instance.db;
+    await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<void> updateTask(Task task) async {
+    Database db = await TaskDatabase.instance.db;
+    await db
+        .update('tasks', task.toMap(), where: 'id = ?', whereArgs: [task.id]);
+  }
 }
