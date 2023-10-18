@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter/app/views/animation/expand_logo_animation.dart';
 import 'package:todo_flutter/app/views/widgets/button_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,9 +25,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/todo_logo.png',
-                ),
+                ExpandLogoAnimation(),
                 Text(
                   'To-Do List',
                   style: Theme.of(context).textTheme.titleLarge,

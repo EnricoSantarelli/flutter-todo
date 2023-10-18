@@ -29,7 +29,7 @@ class _SpinningLogoAnimationState extends State<SpinningLogoAnimation>
   Widget build(BuildContext context) {
     late final Animation<double> animation = CurvedAnimation(
       parent: _controller,
-      curve: Curves.linear,
+      curve: Curves.decelerate,
     );
 
     return RotationTransition(

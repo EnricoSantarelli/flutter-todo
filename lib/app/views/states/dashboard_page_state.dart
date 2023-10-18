@@ -1,4 +1,6 @@
-class DashboardPageState {}
+class DashboardPageState {
+  const DashboardPageState();
+}
 
 class DashboardPageInitialState extends DashboardPageState {}
 
