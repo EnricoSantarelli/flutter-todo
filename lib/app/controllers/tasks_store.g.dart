@@ -135,6 +135,22 @@ mixin _$TasksStore on TasksStoreBase, Store {
     });
   }
 
+  late final _$createTaskAsyncAction =
+      AsyncAction('TasksStoreBase.createTask', context: context);
+
+  @override
+  Future<void> createTask(Task task) {
+    return _$createTaskAsyncAction.run(() => super.createTask(task));
+  }
+
+  late final _$getAllTasksAsyncAction =
+      AsyncAction('TasksStoreBase.getAllTasks', context: context);
+
+  @override
+  Future<void> getAllTasks() {
+    return _$getAllTasksAsyncAction.run(() => super.getAllTasks());
+  }
+
   late final _$TasksStoreBaseActionController =
       ActionController(name: 'TasksStoreBase', context: context);
 
@@ -194,11 +210,11 @@ mixin _$TasksStore on TasksStoreBase, Store {
   }
 
   @override
-  void addTask(Task task) {
+  void deleteTask(String id) {
     final _$actionInfo = _$TasksStoreBaseActionController.startAction(
-        name: 'TasksStoreBase.addTask');
+        name: 'TasksStoreBase.deleteTask');
     try {
-      return super.addTask(task);
+      return super.deleteTask(id);
     } finally {
       _$TasksStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -240,7 +240,9 @@ class TaskCreationSheetWidget extends StatelessWidget {
                       if (formKey.currentState!.validate() &&
                           store.isIconSet &&
                           store.isDifficultySet) {
-                        store.addTask(Task(
+                        store.createTask(Task(
+                            createdAt: DateTime.now()
+                                .subtract(const Duration(seconds: 1)),
                             id: const Uuid().v4(),
                             difficulty: store.difficulty!,
                             icon: store.icon!,

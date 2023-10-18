@@ -4,19 +4,25 @@ import 'package:mobx/mobx.dart';
 
 import 'package:todo_flutter/app/helpers/colors/app_colors.dart';
 import 'package:todo_flutter/app/models/Task.dart';
+import 'package:todo_flutter/app/services/repository/task_repository.dart';
 
 part 'tasks_store.g.dart';
 
 class TasksStore = TasksStoreBase with _$TasksStore;
 
 abstract class TasksStoreBase with Store {
+  final TaskRepository _repository = TaskRepository.instance;
+
+  TasksStoreBase() {
+    getAllTasks();
+  }
+
   @observable
   IconData? icon;
 
   @action
   void setIcon(IconData value) {
     icon = value;
-
     isIconSet = true;
   }
 
@@ -52,22 +58,12 @@ abstract class TasksStoreBase with Store {
 
   @action
   void setDifficulty(int value, BuildContext context) {
-    difficulty = value;
     starsColor =
         List.generate(5, (index) => Theme.of(context).iconTheme.color!);
 
-    Color? color;
-    Map<int, Color> colorMap = {
-      1: AppColors.green,
-      2: AppColors.yellow,
-      3: AppColors.orange,
-      4: AppColors.red,
-      5: AppColors.purple
-    };
-    color = colorMap[value];
+    starsColor.fillRange(0, value, AppColors.getColorByDifficulty(value));
 
-    starsColor.fillRange(0, value, color);
-
+    difficulty = value;
     isDifficultySet = true;
   }
 
@@ -82,7 +78,18 @@ abstract class TasksStoreBase with Store {
   List<Task> tasksList = ObservableList<Task>();
 
   @action
-  void addTask(Task task) {
+  Future<void> createTask(Task task) async {
+    await _repository.createTask(task);
     tasksList.add(task);
+  }
+
+  @action
+  Future<void> getAllTasks() async {
+    tasksList = await _repository.getAllTasks();
+  }
+
+  @action
+  void deleteTask(String id) {
+    tasksList.removeWhere((element) => element.id == id);
   }
 }

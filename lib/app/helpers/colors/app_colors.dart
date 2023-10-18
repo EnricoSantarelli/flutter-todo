@@ -13,4 +13,16 @@ class AppColors {
   static Color orange = Colors.orangeAccent;
   static Color red = Colors.redAccent;
   static Color purple = Colors.purpleAccent;
+
+  static Color? getColorByDifficulty(int difficulty) {
+    Map<int, Color> colorMap = {
+      1: AppColors.green,
+      2: AppColors.yellow,
+      3: AppColors.orange,
+      4: AppColors.red,
+      5: AppColors.purple
+    };
+
+    return colorMap[difficulty];
+  }
 }
