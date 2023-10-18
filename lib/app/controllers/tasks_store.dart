@@ -6,6 +6,7 @@ import 'package:todo_flutter/app/helpers/colors/app_colors.dart';
 import 'package:todo_flutter/app/helpers/enums/status_enum.dart';
 import 'package:todo_flutter/app/models/Task.dart';
 import 'package:todo_flutter/app/services/repository/task_repository.dart';
+import 'package:todo_flutter/app/views/states/dashboard_page_state.dart';
 
 part 'tasks_store.g.dart';
 
@@ -16,6 +17,14 @@ abstract class TasksStoreBase with Store {
 
   TasksStoreBase() {
     getAllTasks();
+  }
+
+  @observable
+  DashboardPageState state = DashboardPageInitialState();
+
+  @action
+  void changeState(DashboardPageState value) {
+    state = value;
   }
 
   @observable
@@ -80,14 +89,18 @@ abstract class TasksStoreBase with Store {
 
   @action
   Future<void> createTask(Task task) async {
+    changeState(DashboardPageLoadingState());
     await _repository.createTask(task);
     tasksList.add(task);
+    changeState(DashboardPageLoadedState());
   }
 
   @action
   Future<void> getAllTasks() async {
+    changeState(DashboardPageLoadingState());
     List<Task> auxiliarList = await _repository.getAllTasks();
     tasksList = ObservableList<Task>.of(auxiliarList);
+    changeState(DashboardPageLoadedState());
   }
 
   @action
@@ -98,9 +111,11 @@ abstract class TasksStoreBase with Store {
 
   @action
   Future<void> changeTaskStatus(Task task, StatusEnum status) async {
+    changeState(DashboardPageLoadingState());
     int index = tasksList.indexOf(task);
 
     tasksList[index] = tasksList[index].copyWith(status: status);
     await _repository.updateTask(tasksList[index]);
+    changeState(DashboardPageLoadedState());
   }
 }

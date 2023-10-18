@@ -9,6 +9,21 @@ part of 'tasks_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TasksStore on TasksStoreBase, Store {
+  late final _$stateAtom = Atom(name: 'TasksStoreBase.state', context: context);
+
+  @override
+  DashboardPageState get state {
+    _$stateAtom.reportRead();
+    return super.state;
+  }
+
+  @override
+  set state(DashboardPageState value) {
+    _$stateAtom.reportWrite(value, super.state, () {
+      super.state = value;
+    });
+  }
+
   late final _$iconAtom = Atom(name: 'TasksStoreBase.icon', context: context);
 
   @override
@@ -172,6 +187,17 @@ mixin _$TasksStore on TasksStoreBase, Store {
       ActionController(name: 'TasksStoreBase', context: context);
 
   @override
+  void changeState(DashboardPageState value) {
+    final _$actionInfo = _$TasksStoreBaseActionController.startAction(
+        name: 'TasksStoreBase.changeState');
+    try {
+      return super.changeState(value);
+    } finally {
+      _$TasksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setIcon(IconData value) {
     final _$actionInfo = _$TasksStoreBaseActionController.startAction(
         name: 'TasksStoreBase.setIcon');
@@ -229,6 +255,7 @@ mixin _$TasksStore on TasksStoreBase, Store {
   @override
   String toString() {
     return '''
+state: ${state},
 icon: ${icon},
 isIconSet: ${isIconSet},
 title: ${title},
