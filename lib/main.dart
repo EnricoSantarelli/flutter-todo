@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           title: 'To Do List',
           theme: lightTheme,
           darkTheme: darkTheme,
-          themeMode: ThemeMode.light,
+          themeMode: ThemeMode.dark,
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {

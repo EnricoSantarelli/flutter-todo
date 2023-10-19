@@ -16,6 +16,8 @@ class CheckboxCardWidget extends StatelessWidget {
 
     return Observer(builder: (context) {
       return RadioListTile<OrderEnum>(
+        tileColor: MaterialStateColor.resolveWith(
+            (states) => Theme.of(context).colorScheme.tertiary),
         activeColor: Theme.of(context).colorScheme.primary,
         title: Text(title, style: Theme.of(context).textTheme.titleSmall!),
         controlAffinity: ListTileControlAffinity.leading,
