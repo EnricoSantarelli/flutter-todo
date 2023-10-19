@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:todo_flutter/app/helpers/colors/app_colors.dart';
+import 'package:todo_flutter/app/helpers/enums/order_enum.dart';
 import 'package:todo_flutter/app/helpers/enums/status_enum.dart';
 import 'package:todo_flutter/app/models/Task.dart';
 import 'package:todo_flutter/app/services/repository/task_repository.dart';
@@ -92,7 +93,8 @@ abstract class TasksStoreBase with Store {
     changeState(DashboardPageLoadingState());
     await _repository.createTask(task);
     tasksList.add(task);
-    changeState(DashboardPageLoadedState());
+    changeState(DashboardPageLoadedState(tasksList: tasksList));
+    filterTasksList();
   }
 
   @action
@@ -100,22 +102,58 @@ abstract class TasksStoreBase with Store {
     changeState(DashboardPageLoadingState());
     List<Task> auxiliarList = await _repository.getAllTasks();
     tasksList = ObservableList<Task>.of(auxiliarList);
-    changeState(DashboardPageLoadedState());
+    changeState(DashboardPageLoadedState(tasksList: tasksList));
+    filterTasksList();
   }
 
   @action
   Future<void> deleteTask(String id) async {
     await _repository.deleteTask(id);
     tasksList.removeWhere((element) => element.id == id);
+    filterTasksList();
   }
 
   @action
   Future<void> changeTaskStatus(Task task, StatusEnum status) async {
-    changeState(DashboardPageLoadingState());
     int index = tasksList.indexOf(task);
 
     tasksList[index] = tasksList[index].copyWith(status: status);
     await _repository.updateTask(tasksList[index]);
-    changeState(DashboardPageLoadedState());
+    filterTasksList();
+  }
+
+  @observable
+  OrderEnum orderby = OrderEnum.status;
+
+  @observable
+  StatusEnum filterByStatus = StatusEnum.ALL;
+
+  @observable
+  RangeValues filterByDifficulty = const RangeValues(1, 5);
+
+  @action
+  void filterTasksList() {
+    tasksList.sort((a, b) {
+      switch (orderby) {
+        case OrderEnum.status:
+          return a.status.index.compareTo(b.status.index);
+        case OrderEnum.difficulty:
+          return a.difficulty.compareTo(b.difficulty);
+        case OrderEnum.creationTime:
+          return a.createdAt.compareTo(b.createdAt);
+      }
+    });
+
+    ObservableList<Task> auxiliarList = ObservableList<Task>.of(
+        tasksList.where((element) => element.status == filterByStatus));
+    if (filterByStatus == StatusEnum.ALL) {
+      auxiliarList = tasksList;
+    }
+
+    auxiliarList = ObservableList<Task>.of(auxiliarList.where((element) =>
+        element.difficulty >= filterByDifficulty.start &&
+        element.difficulty <= filterByDifficulty.end));
+
+    changeState(DashboardPageLoadedState(tasksList: auxiliarList));
   }
 }

@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-enum StatusEnum { TO_DO, IN_PROGRESS, DONE }
+enum StatusEnum { TO_DO, IN_PROGRESS, DONE, ALL }
 
 extension StatusEnumExtension on StatusEnum {
   String get name {
@@ -11,6 +11,8 @@ extension StatusEnumExtension on StatusEnum {
         return "In Progress";
       case StatusEnum.DONE:
         return "Done";
+      case StatusEnum.ALL:
+        return "Status";
       default:
         return "";
     }

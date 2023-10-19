@@ -160,7 +160,7 @@ class TaskCreationSheetWidget extends StatelessWidget {
                   maxLines: 3,
                   expands: false,
                   maxLength: 100,
-                  onChanged: (value) => store.setTitle(value),
+                  onChanged: (value) => store.setDescription(value),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!

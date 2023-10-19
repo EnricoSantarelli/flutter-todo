@@ -150,6 +150,54 @@ mixin _$TasksStore on TasksStoreBase, Store {
     });
   }
 
+  late final _$orderbyAtom =
+      Atom(name: 'TasksStoreBase.orderby', context: context);
+
+  @override
+  OrderEnum get orderby {
+    _$orderbyAtom.reportRead();
+    return super.orderby;
+  }
+
+  @override
+  set orderby(OrderEnum value) {
+    _$orderbyAtom.reportWrite(value, super.orderby, () {
+      super.orderby = value;
+    });
+  }
+
+  late final _$filterByStatusAtom =
+      Atom(name: 'TasksStoreBase.filterByStatus', context: context);
+
+  @override
+  StatusEnum get filterByStatus {
+    _$filterByStatusAtom.reportRead();
+    return super.filterByStatus;
+  }
+
+  @override
+  set filterByStatus(StatusEnum value) {
+    _$filterByStatusAtom.reportWrite(value, super.filterByStatus, () {
+      super.filterByStatus = value;
+    });
+  }
+
+  late final _$filterByDifficultyAtom =
+      Atom(name: 'TasksStoreBase.filterByDifficulty', context: context);
+
+  @override
+  RangeValues get filterByDifficulty {
+    _$filterByDifficultyAtom.reportRead();
+    return super.filterByDifficulty;
+  }
+
+  @override
+  set filterByDifficulty(RangeValues value) {
+    _$filterByDifficultyAtom.reportWrite(value, super.filterByDifficulty, () {
+      super.filterByDifficulty = value;
+    });
+  }
+
   late final _$createTaskAsyncAction =
       AsyncAction('TasksStoreBase.createTask', context: context);
 
@@ -253,6 +301,17 @@ mixin _$TasksStore on TasksStoreBase, Store {
   }
 
   @override
+  void filterTasksList() {
+    final _$actionInfo = _$TasksStoreBaseActionController.startAction(
+        name: 'TasksStoreBase.filterTasksList');
+    try {
+      return super.filterTasksList();
+    } finally {
+      _$TasksStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 state: ${state},
@@ -263,7 +322,10 @@ description: ${description},
 difficulty: ${difficulty},
 isDifficultySet: ${isDifficultySet},
 starsColor: ${starsColor},
-tasksList: ${tasksList}
+tasksList: ${tasksList},
+orderby: ${orderby},
+filterByStatus: ${filterByStatus},
+filterByDifficulty: ${filterByDifficulty}
     ''';
   }
 }

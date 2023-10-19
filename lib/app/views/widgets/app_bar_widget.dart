@@ -5,11 +5,13 @@ class AppBarWidget extends StatelessWidget {
   final String? title;
   final Widget? leading;
   final Color? backgroundColor;
+  final List<Widget>? actions;
   const AppBarWidget(
       {super.key,
       this.elevation,
       this.title,
       this.leading,
+      this.actions,
       this.backgroundColor});
 
   @override
@@ -19,6 +21,7 @@ class AppBarWidget extends StatelessWidget {
         elevation: elevation,
         leading: leading,
         centerTitle: true,
+        actions: actions,
         title: title != null
             ? Text(
                 title!,

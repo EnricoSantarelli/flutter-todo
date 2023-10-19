@@ -15,7 +15,7 @@ class _ExpandLogoAnimationState extends State<ExpandLogoAnimation>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2), );
     _controller.forward();
   }
 
