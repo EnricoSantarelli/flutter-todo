@@ -1,28 +1,31 @@
 # 📘 Flutter To-Do List
 
-Este é um aplicativo de lista de tarefas desenvolvido em Flutter, criado para aprimorar minhas habilidades com o framework Flutter. Ele permite que você gerencie suas tarefas pessoais de forma eficaz.
+This is a to-do list app developed in Flutter, created to enhance my skills with the Flutter framework. It allows you to effectively manage your personal tasks.
 
-## Recursos
+## Features
 
-- Crie, atualize e exclua tarefas.
-- Suporte a temas claros e escuros.
-- Persistência de dados local usando SQLite.
-- Animações para tornar a experiência mais atraente.
+- Create, update, and delete tasks.
+- Light and dark theme support.
+- Local data persistence using SQLite.
+- Animations to make the experience more engaging.
 
-## Instalação
+## Installation
 
-1. Clone este repositório:
+1. Clone this repository:
 
    ```shell
    git clone https://github.com/EnricoSantarelli/flutter-todo.git
 
-2. Instale as dependências
+2. Install dependencies:
 
    ```shell
    flutter pub get
 
-3. Execute a aplicação
+3. Run the application:
 
    ```shell
    flutter run
+
+
+   Enjoy managing your tasks with this Flutter to-do list app!
    
