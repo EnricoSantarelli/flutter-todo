@@ -27,5 +27,5 @@ This is a to-do list app developed in Flutter, created to enhance my skills with
    flutter run
 
 
-   Enjoy managing your tasks with this Flutter to-do list app!
+Enjoy managing your tasks with this Flutter to-do list app!
    
