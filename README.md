@@ -1,16 +1,29 @@
-# todo_flutter
+# 📘 Flutter To-Do List
 
-A new Flutter project.
+![Flutter Version](https://img.shields.io/badge/Flutter-2.5-blue)
+![Dart Version](https://img.shields.io/badge/Dart-2.14-green)
+![License](https://img.shields.io/badge/License-MIT-red)
 
-## Getting Started
+Este é um aplicativo de lista de tarefas desenvolvido em Flutter, criado para aprimorar minhas habilidades com o framework Flutter. Ele permite que você gerencie suas tarefas pessoais de forma eficaz.
 
-This project is a starting point for a Flutter application.
+## Recursos
 
-A few resources to get you started if this is your first Flutter project:
+- Crie, atualize e exclua tarefas.
+- Suporte a temas claros e escuros.
+- Persistência de dados local usando SQLite.
+- Animações para tornar a experiência mais atraente.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Demonstração
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[Inserir Link para um vídeo ou capturas de tela]
+
+## Pré-requisitos
+
+- Flutter: [Guia de Instalação](https://flutter.dev/docs/get-started/install)
+
+## Instalação
+
+1. Clone este repositório:
+
+   ```shell
+   git clone https://github.com/EnricoSantarelli/flutter-todo.git
